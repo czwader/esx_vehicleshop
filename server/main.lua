@@ -13,9 +13,6 @@ end)
 
 ESX.RegisterServerCallback('esx_vehicleshop:buyVehicle', function(source, cb, model, plate, price)
 	local xPlayer = ESX.GetPlayerFromId(source)
-
-
-
 	if xPlayer.getMoney() >= price then
 		xPlayer.removeMoney(price)
 
