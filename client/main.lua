@@ -128,7 +128,6 @@ function OpenShopMenu(shop)
 	end
 
 	for i=1, #Vehicles, 1 do
-		print(vehiclesByCategory[Vehicles[i].category])
 
 		if IsModelInCdimage(GetHashKey(Vehicles[i].model)) then
 			
