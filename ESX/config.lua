@@ -10,19 +10,19 @@ Config.PlateUseSpace = true
 
 Config.shops = {
 	shop1 = {
-		ShopEnteringPos =  vector3(-155.3599, -1348.3154, 29.9227),
+		shopEnteringPos =  vector3(-155.3599, -1348.3154, 29.9227),
 
-		ShopInside = {
-			Pos     = vector3(-144.1738, -1355.3391, 29.5824),
-			Heading = 264.9440,
+		shopInside = {
+			pos     = vector3(-144.1738, -1355.3391, 29.5824),
+			heading = 264.9440,
 		},
 
-		ShopOutside = { 
-			Pos     = vector3(-151.2227, -1355.8848, 29.3776),
-			Heading = 358.4012,
+		shopOutside = { 
+			pos     = vector3(-151.2227, -1355.8848, 29.3776),
+			heading = 358.4012,
 		},
 
-		Categories = {
+		categories = {
 			[1] = {
 				name = "test",
 				label = "test"
@@ -33,7 +33,7 @@ Config.shops = {
 			}
 		},
 
-		Cars = {
+		cars = {
 			[1] = {
 				model = "adder",
 				name = "Adder",
@@ -49,19 +49,19 @@ Config.shops = {
 		},
 	},
 	shop2 = {
-		ShopEnteringPos =  vector3(-147.24,-1342.84,29.92),
+		shopEnteringPos =  vector3(-147.24,-1342.84,29.92),
 
-		ShopInside = { 
-			Pos     = vector3(-144.1738, -1355.3391, 29.5824),
-			Heading = 264.9440,
+		shopInside = { 
+			pos     = vector3(-144.1738, -1355.3391, 29.5824),
+			heading = 264.9440,
 		},
 
-		ShopOutside = { 
-			Pos     = vector3(-151.2227, -1355.8848, 29.3776),
-			Heading = 358.4012,
+		shopOutside = { 
+			pos     = vector3(-151.2227, -1355.8848, 29.3776),
+			heading = 358.4012,
 		},
 		
-		Categories = {
+		categories = {
 			[1] = {
 				name = "test3",
 				label = "test3"
@@ -72,7 +72,7 @@ Config.shops = {
 			}
 		},
 
-		Cars = {
+		cars = {
 			[1] = {
 				model = "adder",
 				name = "Adder",

@@ -12,11 +12,11 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(ped)	
 		local sleep = true
 		for k,v in pairs(Config.shops) do
-			local distance = #(coords - v.ShopEnteringPos)
+			local distance = #(coords - v.shopEnteringPos)
 			if distance < Config.DrawDistance then 
 				sleep = false
 				DrawMarker(
-					21, v.ShopEnteringPos,
+					21, v.shopEnteringPos,
 				 	0.0, 0.0, 0.0,
 					0.0, 0.0, 0.0,
 					0.5, 0.5, 0.5,
@@ -87,14 +87,14 @@ end
 
 -- Open Shop Menu
 function OpenShopMenu(shop)
-	for k,v in pairs(Config.shops[shop].Categories) do 
+	for k,v in pairs(Config.shops[shop].categories) do 
 		Categories[k] = {
 			label = v.label,
 			name = v.name,
 		}
 	end
 
-	for k,v in pairs(Config.shops[shop].Cars) do 
+	for k,v in pairs(Config.shops[shop].cars) do 
 		Vehicles[k] = {
 			model = v.model,
 			name = v.name,
@@ -117,7 +117,7 @@ function OpenShopMenu(shop)
 
 	FreezeEntityPosition(playerPed, true)
 	SetEntityVisible(playerPed, false)
-	SetEntityCoords(playerPed, Config.shops[shop].ShopInside.Pos)
+	SetEntityCoords(playerPed, Config.shops[shop].shopInside.pos)
 
 	local vehiclesByCategory = {}
 	local elements           = {}
@@ -196,7 +196,7 @@ function OpenShopMenu(shop)
 						menu.close()
 						DeleteDisplayVehicleInsideShop()
 
-						ESX.Game.SpawnVehicle(vehicleData.model, Config.shops[shop].ShopOutside.Pos,Config.shops[shop].ShopOutside.Heading, function(vehicle)
+						ESX.Game.SpawnVehicle(vehicleData.model, Config.shops[shop].shopOutside.pos,Config.shops[shop].shopOutside.heading, function(vehicle)
 							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 							SetVehicleNumberPlateText(vehicle, generatedPlate)
 							SetVehicleDirtLevel(vehicle, 0.0)
@@ -219,7 +219,7 @@ function OpenShopMenu(shop)
 		local playerPed = PlayerPedId()
 		FreezeEntityPosition(playerPed, false)
 		SetEntityVisible(playerPed, true)
-		SetEntityCoords(playerPed, Config.shops[shop].ShopEntering.Pos)
+		SetEntityCoords(playerPed, Config.shops[shop].ShopEntering.pos)
 
 		IsInShopMenu = false
 	end, function(data, menu)
@@ -229,7 +229,7 @@ function OpenShopMenu(shop)
 		DeleteDisplayVehicleInsideShop()
 		WaitForVehicleToLoad(vehicleData.model)
 
-		ESX.Game.SpawnLocalVehicle(vehicleData.model, Config.shops[shop].ShopInside.Pos, Config.shops[shop].ShopInside.Heading, function(vehicle)
+		ESX.Game.SpawnLocalVehicle(vehicleData.model, Config.shops[shop].shopInside.pos, Config.shops[shop].shopInside.heading, function(vehicle)
 			currentDisplayVehicle = vehicle
 			TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 			FreezeEntityPosition(vehicle, true)
@@ -241,7 +241,7 @@ function OpenShopMenu(shop)
 	DeleteDisplayVehicleInsideShop()
 	WaitForVehicleToLoad(firstVehicleData.model)
 
-	ESX.Game.SpawnLocalVehicle(firstVehicleData.model, Config.shops[shop].ShopInside.Pos, Config.shops[shop].ShopInside.Heading, function(vehicle)
+	ESX.Game.SpawnLocalVehicle(firstVehicleData.model, Config.shops[shop].shopInside.pos, Config.shops[shop].shopInside.heading, function(vehicle)
 		currentDisplayVehicle = vehicle
 		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 		FreezeEntityPosition(vehicle, true)
@@ -279,7 +279,6 @@ AddEventHandler('onResourceStop', function(resource)
 
 			FreezeEntityPosition(playerPed, false)
 			SetEntityVisible(playerPed, true)
-			SetEntityCoords(playerPed, Config.Zones.ShopEntering.Pos)
 		end
 
 		DeleteDisplayVehicleInsideShop()
