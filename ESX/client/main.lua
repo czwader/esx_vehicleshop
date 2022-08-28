@@ -219,7 +219,7 @@ function OpenShopMenu(shop)
 		local playerPed = PlayerPedId()
 		FreezeEntityPosition(playerPed, false)
 		SetEntityVisible(playerPed, true)
-		SetEntityCoords(playerPed, Config.shops[shop].ShopEntering.pos)
+		SetEntityCoords(playerPed, Config.shops[shop].shopEnteringPos)
 
 		IsInShopMenu = false
 	end, function(data, menu)
