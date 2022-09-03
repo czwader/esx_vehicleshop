@@ -10,6 +10,10 @@ Config.PlateUseSpace = true
 
 Config.shops = {
 	shop1 = {
+		allowJobs = {
+			["police"] = true,
+			["ambulance"] = true,
+		},
 		shopEnteringPos =  vector3(-155.3599, -1348.3154, 29.9227),
 
 		shopInside = {

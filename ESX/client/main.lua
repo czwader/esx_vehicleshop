@@ -3,6 +3,22 @@ local Categories              = {}
 local Vehicles                = {}
 local currentDisplayVehicle
 
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+	ESX.PlayerData = xPlayer
+	ESX.PlayerLoaded = true
+end)
+
+RegisterNetEvent('esx:playerLogout')
+AddEventHandler('esx:playerLogout', function()
+	ESX.PlayerLoaded = false
+	ESX.PlayerData = {}
+end)
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+end)
 
 Citizen.CreateThread(function()
 	AddTextEntry("esx_vehicleshop:enterShop", "~INPUT_CONTEXT~ Otevrit obchod")
@@ -11,24 +27,49 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)	
 		local sleep = true
+		local allow = false
 		for k,v in pairs(Config.shops) do
-			local distance = #(coords - v.shopEnteringPos)
-			if distance < Config.DrawDistance then 
-				sleep = false
-				DrawMarker(
-					21, v.shopEnteringPos,
-				 	0.0, 0.0, 0.0,
-					0.0, 0.0, 0.0,
-					0.5, 0.5, 0.5,
-					255, 0, 0,
-					100, false, true,
-					2, true, nil, nil, false
-				)
-				if distance < 1 then
-					DisplayHelpTextThisFrame("esx_vehicleshop:enterShop") 
-					if IsControlJustReleased(0, 51) then 
-						OpenShopMenu(k)
-					end	
+			if v.allowJobs then
+				if v.allowJobs[ESX.PlayerData.job.name] then
+					local distance = #(coords - v.shopEnteringPos)
+					if distance < Config.DrawDistance then 
+						sleep = false
+						DrawMarker(
+							21, v.shopEnteringPos,
+							0.0, 0.0, 0.0,
+							0.0, 0.0, 0.0,
+							0.5, 0.5, 0.5,
+							255, 0, 0,
+							100, false, true,
+							2, true, nil, nil, false
+						)
+						if distance < 1 then
+							DisplayHelpTextThisFrame("esx_vehicleshop:enterShop") 
+							if IsControlJustReleased(0, 51) then 
+								OpenShopMenu(k)
+							end	
+						end
+					end
+				end
+			else
+				local distance = #(coords - v.shopEnteringPos)
+				if distance < Config.DrawDistance then 
+					sleep = false
+					DrawMarker(
+						21, v.shopEnteringPos,
+						0.0, 0.0, 0.0,
+						0.0, 0.0, 0.0,
+						0.5, 0.5, 0.5,
+						255, 0, 0,
+						100, false, true,
+						2, true, nil, nil, false
+					)
+					if distance < 1 then
+						DisplayHelpTextThisFrame("esx_vehicleshop:enterShop") 
+						if IsControlJustReleased(0, 51) then 
+							OpenShopMenu(k)
+						end	
+					end
 				end
 			end
 		end
@@ -219,7 +260,7 @@ function OpenShopMenu(shop)
 		local playerPed = PlayerPedId()
 		FreezeEntityPosition(playerPed, false)
 		SetEntityVisible(playerPed, true)
-		SetEntityCoords(playerPed, Config.shops[shop].ShopEntering.pos)
+		SetEntityCoords(playerPed, Config.shops[shop].shopEnteringPos)
 
 		IsInShopMenu = false
 	end, function(data, menu)
